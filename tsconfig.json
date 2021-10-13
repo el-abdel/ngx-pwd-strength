@@ -11,6 +11,12 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "paths": {
+      "ngx-pwd-strength": [
+        "dist/ngx-pwd-strength/ngx-pwd-strength",
+        "dist/ngx-pwd-strength"
+      ]
+    },
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
