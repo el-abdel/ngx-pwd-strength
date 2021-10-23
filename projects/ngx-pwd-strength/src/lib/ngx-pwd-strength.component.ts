@@ -1,14 +1,11 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {NgxPwdStrengthService} from "./ngx-pwd-strength.service";
 import {Subscription} from "rxjs";
 
 @Component({
   selector: 'lib-ngx-pwd-strength',
-  template: `
-    <p>
-      ngx-pwd-strength works! {{ score }}
-    </p>
-  `,
+  templateUrl:'./lib-ngx-pwd-strength.compoent.html',
+  host: { class: "ngx-pwd-strength-popup" },
   styles: [
   ]
 })
@@ -18,6 +15,8 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
   score: number = 0;
   subscription!: Subscription;
   @Input() data: any;
+  @HostBinding("style.top") hostStyleTop!: string;
+  @HostBinding("style.left") hostStyleLeft!: string;
   constructor(
     private ngxPwdStrengthService: NgxPwdStrengthService,
     private elementRef: ElementRef,
@@ -49,6 +48,10 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
 
   get elementPosition(): DOMRect {
     return this.data.elementPosition;
+  }
+
+  get popupOffset(): number {
+    return 8;
   }
 
   setPosition(): void {
