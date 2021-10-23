@@ -118,7 +118,8 @@ export class NgxPwdStrengthDirective {
     this.componentRef = this.componentFactoryResolver
       .resolveComponentFactory(component)
       .create(this.injector);
-    (this.componentRef.instance as HostComponent).data = {
+    const hostComponent = this.componentRef.instance as HostComponent;
+    hostComponent.data = {
       element: this.elementRef.nativeElement,
       elementPosition: this.hostPosition
     };
@@ -126,10 +127,13 @@ export class NgxPwdStrengthDirective {
     this.appRef.attachView(this.componentRef.hostView);
     const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
+
+    hostComponent.show = true;
   }
 
   destroyPopup(): void {
     if (!this.isPopupDestroyed) {
+      (this.componentRef.instance as HostComponent).show = false;
       if (!this.componentRef || this.isPopupDestroyed) {
         return;
       }
