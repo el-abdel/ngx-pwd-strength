@@ -1,11 +1,21 @@
-import {Directive, HostListener, OnDestroy} from '@angular/core';
+import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  Directive,
+  ElementRef, EmbeddedViewRef,
+  HostListener,
+  Injector
+} from '@angular/core';
+import {DOMRect, HostComponent} from "./types";
+import {NgxPwdStrengthComponent} from "./ngx-pwd-strength.component";
+import {NgxPwdStrengthService} from "./ngx-pwd-strength.service";
 
 @Directive({
   selector: 'input[type=password][ngxPwdStrength]',
   exportAs: 'ngxPwdStrength'
 })
 
-export class NgxPwdStrengthDirective implements OnDestroy{
+export class NgxPwdStrengthDirective {
   /*
    * Password must be atleast 12 characters long (10 pts)                      => /^(.){12,}$/
    * Password must contain atleast a lowercase letter (5 pts)                  => /^(?=.*[a-z])(.*)$/
@@ -28,13 +38,38 @@ export class NgxPwdStrengthDirective implements OnDestroy{
   regexAtleastLSymbole = /^(?=.*[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#])([a-zA-Z0-9-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]*)$/;
   regexAtleastUniqueCharacters = /(?:(.)(?<=^(?:(?!\1).)*\1)(?=(?:(?!\1).)*$).*?){5,}/;
 
+  hostPosition!: DOMRect;
+  componentRef: any;
 
-  constructor() { }
+  constructor(
+    private ngxPwdStrengthService: NgxPwdStrengthService,
+    private elementRef: ElementRef,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private injector: Injector
+  ) { }
+
+  get isPopupDestroyed(): boolean {
+    return this.componentRef && this.componentRef.hostView.destroyed;
+  }
+  getHostPosition(): void {
+    this.hostPosition = this.elementRef.nativeElement.getBoundingClientRect();
+  }
 
   @HostListener("focusin", ["$event.target.value"])
   onMouseEnter(value: any): void {
-    //show popup
+    this.displayPopup();
     this.ratePassword(value);
+  }
+
+  @HostListener("input", ["$event.target.value"])
+  onInput(value: string): void {
+    this.ratePassword(value);
+  }
+
+  @HostListener("focusout")
+  onMouseLeave(): void {
+    this.destroyPopup();
   }
 
   ratePassword(password: string) {
@@ -65,11 +100,42 @@ export class NgxPwdStrengthDirective implements OnDestroy{
       matches++;
     }
 
-    return score + matches * 10;
-
+    this.ngxPwdStrengthService.updateScore(score + matches * 10);
   }
 
-  ngOnDestroy(): void {
+  displayPopup(): void {
+    if (!this.componentRef || this.isPopupDestroyed) {
+      this.buildPopup();
+    }
+  }
+
+  buildPopup(): void {
+    this.getHostPosition();
+    this.loadComponent(NgxPwdStrengthComponent);
+  }
+
+  loadComponent(component: any): void {
+    this.componentRef = this.componentFactoryResolver
+      .resolveComponentFactory(component)
+      .create(this.injector);
+    (this.componentRef.instance as HostComponent).data = {
+      element: this.elementRef.nativeElement,
+      elementPosition: this.hostPosition
+    };
+
+    this.appRef.attachView(this.componentRef.hostView);
+    const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+    document.body.appendChild(domElem);
+  }
+
+  destroyPopup(): void {
+    if (!this.isPopupDestroyed) {
+      if (!this.componentRef || this.isPopupDestroyed) {
+        return;
+      }
+      this.appRef.detachView(this.componentRef.hostView);
+      this.componentRef.destroy();
+    }
   }
 
 }
