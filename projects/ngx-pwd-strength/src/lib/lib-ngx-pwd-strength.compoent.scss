@@ -1,0 +1,95 @@
+$white: #fff;
+$black: #000;
+
+$light-grey: #d3d3d3;
+$light-black: rgba(0, 0, 0, 0.4);
+
+:host {
+  max-width: 500px;
+  width: 500px;
+  background-color: $white;
+  color: $black;
+  text-align: left;
+  border-radius: 6px;
+  position: absolute;
+  pointer-events: none;
+  padding: 10px;
+  z-index: 1000;
+  display: block;
+  -webkit-transition: opacity 300ms;
+  -moz-transition: opacity 300ms;
+  -o-transition: opacity 300ms;
+  transition: opacity 300ms;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  transition: opacity .3s ease-in-out;
+  box-shadow: 0 1px 5px 0px $light-black;
+
+  &.ngx-pwd-strength-popup {
+    .pwd-popup {
+      .pwd-strength {
+        position: relative;
+        height: 3px;
+        background: $light-grey;
+        margin: 10px auto 10px;
+        border-radius: 3px;
+
+        &:before, &:after {
+          content: '';
+          height: inherit;
+          background: transparent;
+          display: block;
+          border-color: $white;
+          border-style: solid;
+          border-width: 0 5px 0 5px;
+          position: absolute;
+          width: calc((100% - 20px) / 5);
+          z-index: 10;
+        }
+
+        &:before {
+          left: calc((100% - 20px) / 5);
+        }
+        &:after {
+          right: calc((100% - 20px) / 5);
+        }
+
+      }
+
+      .pwd-strength-fill {
+        background: transparent;
+        height: inherit;
+        position: absolute;
+        width: 0;
+        border-radius: inherit;
+        transition: width 0.5s ease-in-out, background 0.25s;
+
+        &[data-score='0'] {
+          background: darkred;
+          width: 20%;
+        }
+
+        &[data-score='1'] {
+          background: orangered;
+          width: 40%;
+        }
+
+        &[data-score='2'] {
+          background: orange;
+          width: 60%;
+        }
+
+        &[data-score='3'] {
+          background: yellowgreen;
+          width: 80%;
+        }
+
+        &[data-score='4'] {
+          background: green;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

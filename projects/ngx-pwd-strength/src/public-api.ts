@@ -5,3 +5,4 @@
 export * from './lib/ngx-pwd-strength.service';
 export * from './lib/ngx-pwd-strength.component';
 export * from './lib/ngx-pwd-strength.module';
+export * from './lib/ngx-pwd-strength.directive';

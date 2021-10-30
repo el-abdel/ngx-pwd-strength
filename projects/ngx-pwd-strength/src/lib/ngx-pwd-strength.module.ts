@@ -15,7 +15,7 @@ import {CommonModule} from "@angular/common";
     CommonModule
   ],
   exports: [
-    NgxPwdStrengthComponent
+    NgxPwdStrengthDirective
   ],
   providers: [NgxPwdStrengthService],
   entryComponents: [

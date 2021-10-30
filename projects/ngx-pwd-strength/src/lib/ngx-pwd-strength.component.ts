@@ -6,13 +6,14 @@ import {Subscription} from "rxjs";
   selector: 'lib-ngx-pwd-strength',
   templateUrl:'./lib-ngx-pwd-strength.compoent.html',
   host: { class: "ngx-pwd-strength-popup" },
-  styles: [
+  styleUrls: [
+    './lib-ngx-pwd-strength.compoent.scss'
   ]
 })
 export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
 
   display: boolean = false;
-  score: number = 0;
+  score: number | null = null;
   subscription!: Subscription;
   @Input() data: any;
   @HostBinding("style.top") hostStyleTop!: string;
@@ -24,7 +25,10 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.ngxPwdStrengthService.updatedScore$.subscribe(data => this.score = data);
+    this.subscription = this.ngxPwdStrengthService.updatedScore$.subscribe(data => {
+      // console.log(data);
+      this.score = data
+    });
   }
 
   @Input() set show(value: boolean) {
