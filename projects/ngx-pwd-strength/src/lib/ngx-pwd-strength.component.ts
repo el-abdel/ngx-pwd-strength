@@ -1,19 +1,20 @@
 import {Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {NgxPwdStrengthService} from "./ngx-pwd-strength.service";
 import {Subscription} from "rxjs";
+import {Feedback, PwdScore} from "./types";
 
 @Component({
   selector: 'lib-ngx-pwd-strength',
-  templateUrl:'./lib-ngx-pwd-strength.compoent.html',
+  templateUrl:'./lib-ngx-pwd-strength.component.html',
   host: { class: "ngx-pwd-strength-popup" },
   styleUrls: [
-    './lib-ngx-pwd-strength.compoent.scss'
+    './lib-ngx-pwd-strength.component.scss'
   ]
 })
 export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
 
   display: boolean = false;
-  score: number | null = null;
+  pwdScore: PwdScore | null = null;
   subscription!: Subscription;
   @Input() data: any;
   @HostBinding("style.top") hostStyleTop!: string;
@@ -26,8 +27,7 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.ngxPwdStrengthService.updatedScore$.subscribe(data => {
-      // console.log(data);
-      this.score = data
+      this.pwdScore = data
     });
   }
 

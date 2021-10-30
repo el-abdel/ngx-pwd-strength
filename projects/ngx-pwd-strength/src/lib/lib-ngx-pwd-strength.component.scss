@@ -1,12 +1,13 @@
 $white: #fff;
 $black: #000;
 
+$dark-grey: #6e757d;
 $light-grey: #d3d3d3;
 $light-black: rgba(0, 0, 0, 0.4);
 
 :host {
-  max-width: 500px;
-  width: 500px;
+  max-width: 400px;
+  width: 400px;
   background-color: $white;
   color: $black;
   text-align: left;
@@ -25,6 +26,7 @@ $light-black: rgba(0, 0, 0, 0.4);
   left: 0;
   transition: opacity .3s ease-in-out;
   box-shadow: 0 1px 5px 0px $light-black;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 
   &.ngx-pwd-strength-popup {
     .pwd-popup {
@@ -54,9 +56,7 @@ $light-black: rgba(0, 0, 0, 0.4);
         &:after {
           right: calc((100% - 20px) / 5);
         }
-
       }
-
       .pwd-strength-fill {
         background: transparent;
         height: inherit;
@@ -89,6 +89,14 @@ $light-black: rgba(0, 0, 0, 0.4);
           background: green;
           width: 100%;
         }
+      }
+      .password-feedback,
+      .password-suggetion {
+        font-size: 70%;
+        font-weight: 400;
+        color: $dark-grey !important;
+        display: block;
+        margin-top: 0.25rem;
       }
     }
   }

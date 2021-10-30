@@ -15,3 +15,13 @@ export interface HostComponent {
   close: boolean;
   events: any;
 }
+
+export interface Feedback {
+  suggestions: string[];
+  warning: string
+}
+
+export interface PwdScore {
+  score: number;
+  feedback: Feedback
+}

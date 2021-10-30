@@ -53,7 +53,7 @@ export class NgxPwdStrengthDirective {
 
   ratePassword(password: string) {
     if(password) {
-      let score = this.ngxPwdStrengthService.getScore(password);
+      let score = this.ngxPwdStrengthService.getScoreWithFeedback(password);
       this.ngxPwdStrengthService.updateScore(score);
     } else {
       this.ngxPwdStrengthService.updateScore(null);

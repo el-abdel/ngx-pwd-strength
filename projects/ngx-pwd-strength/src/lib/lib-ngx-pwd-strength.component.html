@@ -1,0 +1,14 @@
+<div class="pwd-popup">
+  <div class="pwd-strength">
+    <div class="pwd-strength-fill" [attr.data-score]="pwdScore?.score"></div>
+  </div>
+  <ng-container *ngIf="pwdScore?.feedback">
+    <small class="password-feedback" *ngIf="pwdScore?.feedback?.warning">
+      {{pwdScore?.feedback?.warning}}
+    </small>
+    <small class="password-suggetion" *ngIf="pwdScore?.feedback?.suggestions">
+      <ng-container *ngFor="let suggetion of pwdScore?.feedback?.suggestions">{{suggetion}}</ng-container>
+    </small>
+  </ng-container>
+</div>
+
