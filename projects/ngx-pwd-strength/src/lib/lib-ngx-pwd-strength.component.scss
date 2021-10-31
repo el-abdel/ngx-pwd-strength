@@ -6,12 +6,12 @@ $light-grey: #d3d3d3;
 $light-black: rgba(0, 0, 0, 0.4);
 
 :host {
-  max-width: 400px;
-  width: 400px;
+  max-width: 500px;
+  width: 480px;
   background-color: $white;
   color: $black;
   text-align: left;
-  border-radius: .25rem;
+  border-radius: 2px;
   position: absolute;
   pointer-events: none;
   padding: 10px;
@@ -25,7 +25,7 @@ $light-black: rgba(0, 0, 0, 0.4);
   top: 0;
   left: 0;
   transition: opacity .3s ease-in-out;
-  box-shadow: 0 1px 5px 0px $light-black;
+  box-shadow: 0 1px 3px 0px $light-black;
   font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 
   &.ngx-pwd-strength-popup {
@@ -91,12 +91,23 @@ $light-black: rgba(0, 0, 0, 0.4);
       }
       .password-feedback,
       .password-suggetion {
-        font-size: 70%;
+        font-size: 80%;
         font-weight: 400;
-        color: $dark-grey !important;
         display: block;
         margin-top: 0.25rem;
       }
+      .password-suggetion{
+        color: $dark-grey !important;
+      }
+      .password-feedback{
+        color: orange !important;
+      }
     }
   }
+
+  ul {
+    padding-left: 14px;
+    line-height: 17px;
+  }
+
 }

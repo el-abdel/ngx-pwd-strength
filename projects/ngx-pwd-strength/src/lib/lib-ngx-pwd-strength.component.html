@@ -3,12 +3,12 @@
     <div class="pwd-strength-fill" [attr.data-score]="pwdScore?.score"></div>
   </div>
   <ng-container *ngIf="pwdScore?.feedback">
-    <small class="password-feedback" *ngIf="pwdScore?.feedback?.warning">
-      {{pwdScore?.feedback?.warning}}
-    </small>
-    <small class="password-suggetion" *ngIf="pwdScore?.feedback?.suggestions">
-      <ng-container *ngFor="let suggetion of pwdScore?.feedback?.suggestions">{{suggetion}}</ng-container>
-    </small>
+    <p class="password-feedback" *ngIf="pwdScore?.feedback?.warning">
+      <span>&#9888;</span> {{pwdScore?.feedback?.warning}}
+    </p>
+    <ul class="password-suggetion" *ngIf="pwdScore?.feedback?.suggestions">
+      <li *ngFor="let suggetion of pwdScore?.feedback?.suggestions">{{suggetion}}</li>
+    </ul>
   </ng-container>
 </div>
 

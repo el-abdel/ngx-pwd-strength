@@ -1,7 +1,7 @@
-import {Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgxPwdStrengthService} from "./ngx-pwd-strength.service";
 import {Subscription} from "rxjs";
-import {Feedback, PwdScore} from "./types";
+import {PwdScore} from "./types";
 
 @Component({
   selector: 'lib-ngx-pwd-strength',
@@ -16,13 +16,14 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
   display: boolean = false;
   pwdScore: PwdScore | null = null;
   subscription!: Subscription;
+  popupOffset: number = 5;
+  popupPosition: string = "bottom";
   @Input() data: any;
   @HostBinding("style.top") hostStyleTop!: string;
   @HostBinding("style.left") hostStyleLeft!: string;
   constructor(
     private ngxPwdStrengthService: NgxPwdStrengthService,
-    private elementRef: ElementRef,
-    private renderer: Renderer2
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -33,17 +34,13 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
 
   @Input() set show(value: boolean) {
     if (value) {
-      this.setPosition();
+      this.setHostPosition(this.popupPosition);
     }
     this.display = value;
   }
 
   get show(): boolean {
     return this.display;
-  }
-
-  get placement(): string {
-    return 'bottom';
   }
 
   get element() {
@@ -54,38 +51,7 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
     return this.data.elementPosition;
   }
 
-  get popupOffset(): number {
-    return 8;
-  }
-
-  setPosition(): void {
-    if (this.setHostStyle(this.placement)) {
-      this.setPlacementClass(this.placement);
-
-      return;
-    } else {
-      // Is popup outside the visible area
-      const placements = ["top", "right", "bottom", "left"];
-      let isPlacementSet;
-
-      for (const placement of placements) {
-        if (this.setHostStyle(placement)) {
-          this.setPlacementClass(placement);
-          isPlacementSet = true;
-
-          return;
-        }
-      }
-
-      // Set original placement
-      if (!isPlacementSet) {
-        this.setHostStyle(this.placement);
-        this.setPlacementClass(this.placement);
-      }
-    }
-  }
-
-  setHostStyle(placement: string): boolean {
+  setHostPosition(position: string): void {
     const isSvg = this.element instanceof SVGElement;
     const popup = this.elementRef.nativeElement;
     const isCustomPosition = !this.elementPosition.right;
@@ -104,38 +70,26 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
     let topStyle;
     let leftStyle;
 
-    switch (placement) {
+    switch (position) {
       case "top":
         topStyle = (this.elementPosition.top + scrollY) - (popupHeight + this.popupOffset);
         leftStyle = this.elementPosition.left;
-
         break;
-
       case "bottom":
         topStyle = (this.elementPosition.top + scrollY) + elementHeight + this.popupOffset;
         leftStyle = this.elementPosition.left;
-
         break;
       case "left":
         leftStyle = this.elementPosition.left - popupWidth - this.popupOffset;
         topStyle = (this.elementPosition.top + scrollY);
-
         break;
-
       case "right":
         leftStyle = this.elementPosition.left + elementWidth + this.popupOffset;
         topStyle = (this.elementPosition.top + scrollY);
-
     }
 
     this.hostStyleTop = topStyle + "px";
     this.hostStyleLeft = leftStyle + "px";
-
-    return true;
-  }
-
-  setPlacementClass(placement: string): void {
-    this.renderer.addClass(this.elementRef.nativeElement, "popup-" + placement);
   }
 
   ngOnDestroy() {

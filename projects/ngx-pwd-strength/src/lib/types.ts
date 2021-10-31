@@ -9,8 +9,13 @@ export interface DOMRect {
   y: number;
 }
 
+export interface Data {
+  element: any;
+  elementPosition: DOMRect;
+}
+
 export interface HostComponent {
-  data: any; //todo: define data type
+  data: Data;
   show: boolean;
   close: boolean;
   events: any;
