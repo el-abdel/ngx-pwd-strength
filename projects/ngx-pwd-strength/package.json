@@ -1,6 +1,21 @@
 {
   "name": "ngx-pwd-strength",
-  "version": "0.0.1",
+  "description": "Angular Package, that measure password strength and indicate how secure is it",
+  "version": "1.0.0",
+  "author": "Abdellah El makhroubi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/el-abdel/ngx-pwd-strength.git"
+  },
+  "keywords": [
+    "angular",
+    "password",
+    "strenght",
+    "score",
+    "meter",
+    "zxcvbn"
+  ],
   "peerDependencies": {
     "@angular/common": "^12.2.0",
     "@angular/core": "^12.2.0",
