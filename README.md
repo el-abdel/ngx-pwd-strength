@@ -1,27 +1,37 @@
 # NgxPwdStrength
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.9.
+Estimate the strength of the password using [zxcvbn](https://github.com/dropbox/zxcvbn), and display a visual password strength bar
+and feedback with suggestions and warning messages to help choose better passwords.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install [zxcvbn](https://github.com/dropbox/zxcvbn) (as the lib depends on) and `NgxPwdStrength` via npm:
 
-## Code scaffolding
+```sh
+npm install zxcvbn3 ngx-pwd-strength --save
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Configuration
 
-## Build
+Import NgxPwdStrength Module into the app module
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```ts
+import { NgxPwdStrengthModule } from 'ngx-pwd-strength';
 
-## Running unit tests
+@NgModule({
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    imports: [
+      NgxPwdStrengthModule
+    ]
 
-## Running end-to-end tests
+})
+export class AppModule { }
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Usage
 
-## Further help
+Add `ngxPwdStrength` directive to inputs of type = password
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```html
+<input type="password" ngxPwdStrength name="password" placeholder="Password">
+```

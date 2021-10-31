@@ -1,24 +1,37 @@
 # NgxPwdStrength
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
+Estimate the strength of the password using [zxcvbn](https://github.com/dropbox/zxcvbn), and display a visual password strength bar
+and feedback with suggestions and warning messages to help choose better passwords.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ngx-pwd-strength` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-pwd-strength`.
-> Note: Don't forget to add `--project ngx-pwd-strength` or else it will be added to the default project in your `angular.json` file. 
+Install [zxcvbn](https://github.com/dropbox/zxcvbn) (as the lib depends on) and `NgxPwdStrength` via npm:
 
-## Build
+```sh
+npm install zxcvbn3 ngx-pwd-strength --save
+```
 
-Run `ng build ngx-pwd-strength` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Configuration
 
-## Publishing
+Import NgxPwdStrength Module into the app module
 
-After building your library with `ng build ngx-pwd-strength`, go to the dist folder `cd dist/ngx-pwd-strength` and run `npm publish`.
+```ts
+import { NgxPwdStrengthModule } from 'ngx-pwd-strength';
 
-## Running unit tests
+@NgModule({
 
-Run `ng test ngx-pwd-strength` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    imports: [
+      NgxPwdStrengthModule
+    ]
 
-## Further help
+})
+export class AppModule { }
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Usage
+
+Add `ngxPwdStrength` directive to inputs of type = password
+
+```html
+<input type="password" ngxPwdStrength name="password" placeholder="Password">
+```
