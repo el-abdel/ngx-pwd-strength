@@ -3,6 +3,8 @@
 Estimate the strength of the password using [zxcvbn](https://github.com/dropbox/zxcvbn), and display a visual password strength bar
 and feedback with suggestions and warning messages to help choose better passwords.
 
+![Demo](assets/ngxPwdStrength-capture.gif)
+
 ## Installation
 
 Install [zxcvbn](https://github.com/dropbox/zxcvbn) (as the lib depends on) and `NgxPwdStrength` via npm:
