@@ -21,6 +21,7 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
   @Input() data: any;
   @HostBinding("style.top") hostStyleTop!: string;
   @HostBinding("style.left") hostStyleLeft!: string;
+  @HostBinding("style.width") hostStyleWidth!: string;
   constructor(
     private ngxPwdStrengthService: NgxPwdStrengthService,
     private elementRef: ElementRef
@@ -90,6 +91,7 @@ export class NgxPwdStrengthComponent implements OnInit, OnDestroy {
 
     this.hostStyleTop = topStyle + "px";
     this.hostStyleLeft = leftStyle + "px";
+    this.hostStyleWidth = this.elementPosition.width + "px";
   }
 
   ngOnDestroy() {
