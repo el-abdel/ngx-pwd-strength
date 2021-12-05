@@ -3,7 +3,7 @@
 Estimate the strength of the password using [zxcvbn](https://github.com/dropbox/zxcvbn), and display a visual password strength bar
 and feedback with suggestions and warning messages to help choose better passwords.
 
-![Demo](assets/ngxPwdStrength-capture.gif)
+[Live Demo](https://el-abdel.github.io/ngx-pwd-strength/)
 
 ## Installation
 
