@@ -18,13 +18,30 @@ npm install zxcvbn3 ngx-pwd-strength --save
 Import NgxPwdStrength Module into the app module
 
 ```ts
-import { NgxPwdStrengthModule } from 'ngx-pwd-strength';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgxPwdStrengthModule, NgxPwdStrengthService} from "ngx-pwd-strength";
+
+// By default feedback is enabled, use this config to disable it
+function initializePwdStrength(pwdStrength: NgxPwdStrengthService) {
+  return () =>
+    pwdStrength.init({
+      enableFeedback: false
+    });
+}
 
 @NgModule({
 
     imports: [
       NgxPwdStrengthModule
-    ]
+    ],
+       providers: [
+         {
+           provide: APP_INITIALIZER,
+           useFactory: initializePwdStrength,
+           multi: true,
+           deps: [NgxPwdStrengthService]
+         }
+       ]
 
 })
 export class AppModule { }

@@ -28,5 +28,9 @@ export interface Feedback {
 
 export interface PwdScore {
   score: number;
-  feedback: Feedback
+  feedback?: Feedback
+}
+
+export interface pwdConfiguration {
+  enableFeedback: boolean;
 }

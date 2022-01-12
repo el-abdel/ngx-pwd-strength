@@ -1,16 +1,22 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {zxcvbn} from "zxcvbn3";
-import {PwdScore} from "./types";
+import {pwdConfiguration, PwdScore} from "./types";
 
 @Injectable()
 export class NgxPwdStrengthService {
+
+  private _options: pwdConfiguration = { enableFeedback: true };
 
   private score = new BehaviorSubject<any>(null);
   public updatedScore$ = this.score.asObservable();
 
   updateScore(data: any): void {
     this.score.next(data);
+  }
+
+  init (options: pwdConfiguration) {
+    this._options = options;
   }
 
   /**
@@ -22,8 +28,8 @@ export class NgxPwdStrengthService {
    * 4 # very unguessable: strong protection from offline slow-hash scenario. (guesses >= 10^10)
    * @param password
    */
-  getScoreWithFeedback(password: string): PwdScore{
+  getScore(password: string): PwdScore{
     const result = zxcvbn(password);
-    return { score: result.score, feedback: result.feedback };
+    return this._options.enableFeedback ? { score: result.score, feedback: result.feedback } : { score: result.score }
   }
 }
