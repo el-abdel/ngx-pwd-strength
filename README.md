@@ -21,7 +21,7 @@ Import NgxPwdStrength Module into the app module
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {NgxPwdStrengthModule, NgxPwdStrengthService} from "ngx-pwd-strength";
 
-// By default feedback is enabled, use this config to disable it
+// By default password strenght suggestions is enabled, use this config to disable it
 function initializePwdStrength(pwdStrength: NgxPwdStrengthService) {
   return () =>
     pwdStrength.init({
